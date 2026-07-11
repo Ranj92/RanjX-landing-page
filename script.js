@@ -151,3 +151,45 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+// Interactive Glossy 3D effect for update-visual
+const updateVisual = document.querySelector('.update-visual');
+const updateImg = updateVisual ? updateVisual.querySelector('img') : null;
+const updateShine = updateVisual ? updateVisual.querySelector('.shine') : null;
+
+if (updateVisual && updateImg && updateShine) {
+    updateVisual.addEventListener('mousemove', (e) => {
+        const rect = updateVisual.getBoundingClientRect();
+        const x = e.clientX - rect.left; // x position within the element
+        const y = e.clientY - rect.top;  // y position within the element
+        
+        // Calculate percentages relative to center
+        const xc = rect.width / 2;
+        const yc = rect.height / 2;
+        const dx = x - xc;
+        const dy = y - yc;
+        
+        // Rotate values (max 10 degrees tilt to prevent excessive distortion)
+        const tiltX = -(dy / yc) * 10;
+        const tiltY = (dx / xc) * 10;
+        
+        // Apply 3D rotation to the image
+        updateImg.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
+        updateImg.style.boxShadow = `${-tiltY * 2}px ${tiltX * 2}px 35px rgba(0, 240, 255, 0.25)`;
+        
+        // Move the shine overlay reflection (glassy diagonal sweep)
+        const shineX = ((x / rect.width) - 0.5) * 60; // range from -30% to 30%
+        const shineY = ((y / rect.height) - 0.5) * 60; // range from -30% to 30%
+        updateVisual.style.setProperty('--shine-x', `${shineX}%`);
+        updateVisual.style.setProperty('--shine-y', `${shineY}%`);
+    });
+    
+    updateVisual.addEventListener('mouseleave', () => {
+        // Reset transformation when mouse leaves
+        updateImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+        updateImg.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.4)';
+        // Reset shine position variables
+        updateVisual.style.setProperty('--shine-x', '0%');
+        updateVisual.style.setProperty('--shine-y', '0%');
+    });
+}
