@@ -328,6 +328,34 @@ body {
   font-weight: bold;
 }
 
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-right: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.badge-new {
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--accent-primary);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.badge-ui {
+  background: rgba(112, 0, 255, 0.1);
+  color: #b070ff;
+  border: 1px solid rgba(112, 0, 255, 0.3);
+}
+
+.badge-beta {
+  background: rgba(255, 170, 0, 0.1);
+  color: #ffaa00;
+  border: 1px solid rgba(255, 170, 0, 0.3);
+}
+
 .update-visual {
   flex: 1;
   border-top: 1px solid var(--card-border);
